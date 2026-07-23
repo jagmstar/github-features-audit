@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAGM IT Company — Digital Twins Team</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d1117; color: #c9d1d9; line-height: 1.6; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; padding: 40px 20px; }
+        .header h1 { font-size: 2.5em; color: #58a6ff; }
+        .header p { color: #8b949e; font-size: 1.2em; margin-top: 10px; }
+        .stats { display: flex; justify-content: center; gap: 40px; margin: 30px 0; flex-wrap: wrap; }
+        .stat { text-align: center; }
+        .stat .num { font-size: 2em; color: #3fb950; font-weight: bold; }
+        .stat .label { color: #8b949e; font-size: 0.9em; }
+        .dept-section { margin: 30px 0; }
+        .dept-section h2 { color: #58a6ff; font-size: 1.3em; margin-bottom: 15px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
+        .roles { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+        .role-card { background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 12px; transition: border-color 0.2s; }
+        .role-card:hover { border-color: #58a6ff; }
+        .role-card .name { color: #c9d1d9; font-weight: 600; font-size: 0.95em; }
+        .role-card .dept { color: #8b949e; font-size: 0.8em; margin-top: 3px; }
+        .role-card .status { display: inline-block; padding: 1px 6px; border-radius: 10px; font-size: 0.7em; margin-top: 5px; }
+        .status-active { background: #238636; color: white; }
+        .status-profile { background: #1f6feb; color: white; }
+        .status-server { background: #8957e5; color: white; }
+        .footer { text-align: center; padding: 30px; color: #8b949e; }
+        a { color: #58a6ff; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>JAGM IT Company — Digital Twins</h1>
+            <p>140 Role Profiles · 14 Live Server Agents · 10 Departments</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat"><div class="num">140</div><div class="label">Role Profiles</div></div>
+            <div class="stat"><div class="num">14</div><div class="label">Server Agents</div></div>
+            <div class="stat"><div class="num">10</div><div class="label">Departments</div></div>
+            <div class="stat"><div class="num">28</div><div class="label">Repositories</div></div>
+            <div class="stat"><div class="num">400+</div><div class="label">Closed Tickets</div></div>
+        </div>
+
+        <div class="dept-section">
+            <h2>C-Level Executive (5 roles)</h2>
+            <div class="roles">
+                <div class="role-card"><div class="name">CEO</div><div class="dept">Executive</div><span class="status status-server">SERVER AGENT</span></div>
+                <div class="role-card"><div class="name">CTO</div><div class="dept">Executive</div><span class="status status-server">SERVER AGENT</span></div>
+                <div class="role-card"><div class="name">CFO</div><div class="dept">Executive</div><span class="status status-server">SERVER AGENT</span></div>
+                <div class="role-card"><div class="name">CMO</div><div class="dept">Executive</div><span class="status status-server">SERVER AGENT</span></div>
+                <div class="role-card"><div class="name">CISO</div><div class="dept">Executive</div><span class="status status-server">SERVER AGENT</span></div>
+            </div>
+        </div>
+
+        <div class="dept-section">
+            <h2>COO Twin (1 role)</h2>
+            <div class="roles">
+                <div class="role-card"><div class="name">Clark COO Twin</div><div class="dept">Executive</div><span class="status status-active">ACTIVE</span></div>
+            </div>
+        </div>
+
+        <div class="dept-section">
+            <h2>PMO — Project Management Office (8 roles)</h2>
+            <div class="roles">
+                <div class="role-card"><div class="name">PMO Director</div><div class="dept">PMO</div><span class="status status-server">SERVER AGENT</span></div>
+                <div class="role-card"><div class="name">Project Manager</div><div class="dept">PMO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Program Coordinator</div><div class="dept">PMO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Scrum Master</div><div class="dept">PMO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Release Manager</div><div class="dept">PMO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Business Analyst</div><div class="dept">PMO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Product Owner</div><div class="dept">PMO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Product Manager</div><div class="dept">PMO</div><span class="status status-profile">PROFILE</span></div>
+            </div>
+        </div>
+
+        <div class="dept-section">
+            <h2>SEDO — Software Engineering Department (20 roles)</h2>
+            <div class="roles">
+                <div class="role-card"><div class="name">SEDO Director</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Senior Software Architect</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Senior Python Developer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Senior JavaScript Developer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Senior Kotlin Developer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Senior Go Developer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Senior Rust Developer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Senior Java Developer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Senior C++ Developer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Senior Swift Developer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Full-Stack Developer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Frontend Developer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Backend Developer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Android Developer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">iOS Developer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">DevOps Engineer</div><div class="dept">SEDO</div><span class="status status-server">SERVER AGENT</span></div>
+                <div class="role-card"><div class="name">AI Engineer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">ML Engineer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Data Engineer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Embedded Developer</div><div class="dept">SEDO</div><span class="status status-profile">PROFILE</span></div>
+            </div>
+        </div>
+
+        <div class="dept-section">
+            <h2>QAO — Quality Assurance Office (10 roles)</h2>
+            <div class="roles">
+                <div class="role-card"><div class="name">QAO Director</div><div class="dept">QAO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">QA Lead</div><div class="dept">QAO</div><span class="status status-server">SERVER AGENT</span></div>
+                <div class="role-card"><div class="name">Senior QA Engineer</div><div class="dept">QAO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">QA Automation Engineer</div><div class="dept">QAO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Test Engineer</div><div class="dept">QAO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Performance Engineer</div><div class="dept">QAO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Security Tester</div><div class="dept">QAO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">E2E Tester</div><div class="dept">QAO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Integration Tester</div><div class="dept">QAO</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Acceptance Tester</div><div class="dept">QAO</div><span class="status status-profile">PROFILE</span></div>
+            </div>
+        </div>
+
+        <div class="dept-section">
+            <h2>DevOps Department (8 roles)</h2>
+            <div class="roles">
+                <div class="role-card"><div class="name">DevOps Lead</div><div class="dept">DevOps</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">SRE Engineer</div><div class="dept">DevOps</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Cloud Architect</div><div class="dept">DevOps</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">CI/CD Engineer</div><div class="dept">DevOps</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Infrastructure Engineer</div><div class="dept">DevOps</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Platform Engineer</div><div class="dept">DevOps</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Container Engineer</div><div class="dept">DevOps</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Network Engineer</div><div class="dept">DevOps</div><span class="status status-profile">PROFILE</span></div>
+            </div>
+        </div>
+
+        <div class="dept-section">
+            <h2>Design Office (8 roles)</h2>
+            <div class="roles">
+                <div class="role-card"><div class="name">Design Director</div><div class="dept">Design</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">UI/UX Designer</div><div class="dept">Design</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Product Designer</div><div class="dept">Design</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Brand Designer</div><div class="dept">Design</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Motion Designer</div><div class="dept">Design</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Web Designer</div><div class="dept">Design</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Mobile Designer</div><div class="dept">Design</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Design System Lead</div><div class="dept">Design</div><span class="status status-profile">PROFILE</span></div>
+            </div>
+        </div>
+
+        <div class="dept-section">
+            <h2>Research Department (10 roles)</h2>
+            <div class="roles">
+                <div class="role-card"><div class="name">Research Director</div><div class="dept">Research</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Senior Researcher</div><div class="dept">Research</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">AI Researcher</div><div class="dept">Research</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">CV Engineer</div><div class="dept">Research</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Drone Engineer</div><div class="dept">Research</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">NLP Researcher</div><div class="dept">Research</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Data Scientist</div><div class="dept">Research</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Blockchain Researcher</div><div class="dept">Research</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">IoT Researcher</div><div class="dept">Research</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Robotics Engineer</div><div class="dept">Research</div><span class="status status-profile">PROFILE</span></div>
+            </div>
+        </div>
+
+        <div class="dept-section">
+            <h2>Sales Department (8 roles)</h2>
+            <div class="roles">
+                <div class="role-card"><div class="name">Sales Director</div><div class="dept">Sales</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Account Manager</div><div class="dept">Sales</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Pre-Sales Engineer</div><div class="dept">Sales</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Sales Development Rep</div><div class="dept">Sales</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Customer Success Manager</div><div class="dept">Sales</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Partnership Manager</div><div class="dept">Sales</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Brand Manager</div><div class="dept">Sales</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Growth Hacker</div><div class="dept">Sales</div><span class="status status-profile">PROFILE</span></div>
+            </div>
+        </div>
+
+        <div class="dept-section">
+            <h2>Legal Department (100 roles — 20 jurisdictions × 5 domains)</h2>
+            <div class="roles">
+                <div class="role-card"><div class="name">Legal Director</div><div class="dept">Legal</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Privacy Lawyer (GDPR)</div><div class="dept">Legal</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Privacy Lawyer (CCPA)</div><div class="dept">Legal</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">IP Lawyer (Patents)</div><div class="dept">Legal</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">IP Lawyer (Trademarks)</div><div class="dept">Legal</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Contract Lawyer (US)</div><div class="dept">Legal</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Contract Lawyer (EU)</div><div class="dept">Legal</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Contract Lawyer (UK)</div><div class="dept">Legal</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Compliance Lawyer (EU)</div><div class="dept">Legal</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">Compliance Lawyer (US)</div><div class="dept">Legal</div><span class="status status-profile">PROFILE</span></div>
+                <div class="role-card"><div class="name">+ 90 more legal roles</div><div class="dept">Legal</div><span class="status status-profile">20 jurisdictions</span></div>
+            </div>
+        </div>
+
+        <div class="dept-section">
+            <h2>Special Roles (5 roles)</h2>
+            <div class="roles">
+                <div class="role-card"><div class="name">Audit Agent</div><div class="dept">Audit</div><span class="status status-server">SERVER AGENT</span></div>
+                <div class="role-card"><div class="name">Memory Warden</div><div class="dept">Governance</div><span class="status status-server">SERVER AGENT</span></div>
+                <div class="role-card"><div class="name">Dashboard Agent</div><div class="dept">Operations</div><span class="status status-server">SERVER AGENT</span></div>
+                <div class="role-card"><div class="name">Superman (Mac Twin)</div><div class="dept">Cross-platform</div><span class="status status-server">SERVER AGENT</span></div>
+                <div class="role-card"><div class="name">Tech Writer</div><div class="dept">Documentation</div><span class="status status-profile">PROFILE</span></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><a href="index.html">← Back to Presentation</a></p>
+            <p>JAGM IT Company — AI-SDLC Team of Digital Twins</p>
+            <p>140 role profiles · 14 live server agents (ollama/qwen2.5:7b) · 10 departments</p>
+        </div>
+    </div>
+</body>
+</html>
