@@ -1,0 +1,31 @@
+﻿name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check markdown files exist
+        run: |
+          find docs/ -name "*.md" | while read f; do
+            echo "Found: $f"
+            if [ ! -s "$f" ]; then
+              echo "ERROR: $f is empty"
+              exit 1
+            fi
+          done
+      - name: Verify all deliverables
+        run: |
+          echo "Checking deliverable files..."
+          for f in CEO-strategic-analysis CTO-technical-plan CFO-cost-analysis CMO-marketing-analysis CISO-security-audit PMO-project-management QAO-quality-strategy DevOps-automation-plan SEDO-engineering-standards Research-feature-catalog Design-brand-guide Sales-strategy TechWriter-documentation AI-Engineer-features Legal-compliance; do
+            if [ -f "docs/$f.md" ]; then
+              echo "OK: docs/$f.md exists"
+            else
+              echo "PENDING: docs/$f.md not yet submitted"
+            fi
+          done
