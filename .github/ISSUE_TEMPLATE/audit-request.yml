@@ -1,0 +1,41 @@
+name: Audit request
+description: Request a client-facing audit engagement.
+title: "[Audit Request]: "
+labels:
+  - audit
+body:
+  - type: input
+    id: repo_url
+    attributes:
+      label: Repository URL
+      description: Share the repository URL to audit.
+      placeholder: https://github.com/owner/repository
+    validations:
+      required: true
+  - type: input
+    id: company_name
+    attributes:
+      label: Company name
+      description: Tell us the company name for this request.
+      placeholder: JAGM IT Company
+    validations:
+      required: true
+  - type: input
+    id: contact_email
+    attributes:
+      label: Contact email
+      description: Provide the primary contact email for audit follow-up.
+      placeholder: contact@company.com
+    validations:
+      required: true
+  - type: dropdown
+    id: audit_tier
+    attributes:
+      label: Audit tier
+      description: Select the audit tier that best matches the requested scope.
+      options:
+        - basic
+        - standard
+        - premium
+    validations:
+      required: true
