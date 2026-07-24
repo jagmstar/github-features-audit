@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CTO Technical Architecture</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: rgba(13, 24, 43, 0.92);
+      --panel-2: rgba(10, 18, 32, 0.95);
+      --stroke: rgba(148, 163, 184, 0.18);
+      --text: #e5eefc;
+      --muted: #9fb3cc;
+      --accent: #60a5fa;
+      --accent-2: #34d399;
+      --warn: #f59e0b;
+      --danger: #fb7185;
+      --success: #22c55e;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at top left, rgba(96, 165, 250, 0.20), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(52, 211, 153, 0.12), transparent 28%),
+        linear-gradient(135deg, #040914 0%, #07111f 50%, #0b1324 100%);
+      font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    .slide {
+      width: 1280px;
+      height: 720px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(10, 18, 32, 0.88), rgba(7, 12, 24, 0.96)),
+        linear-gradient(135deg, rgba(96, 165, 250, 0.08), rgba(34, 197, 94, 0.03));
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      box-shadow: var(--shadow);
+    }
+
+    .slide::before,
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: auto;
+      border-radius: 999px;
+      filter: blur(2px);
+      pointer-events: none;
+    }
+
+    .slide::before {
+      width: 420px;
+      height: 420px;
+      left: -140px;
+      top: -160px;
+      background: radial-gradient(circle, rgba(96, 165, 250, 0.14), transparent 68%);
+    }
+
+    .slide::after {
+      width: 380px;
+      height: 380px;
+      right: -120px;
+      bottom: -130px;
+      background: radial-gradient(circle, rgba(52, 211, 153, 0.11), transparent 68%);
+    }
+
+    .header {
+      position: relative;
+      z-index: 2;
+      padding: 44px 54px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .eyebrow .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 0 6px rgba(96, 165, 250, 0.12);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 54px;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin-top: 12px;
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 720px;
+      line-height: 1.45;
+    }
+
+    .badge {
+      padding: 14px 18px;
+      border: 1px solid rgba(96, 165, 250, 0.25);
+      background: rgba(96, 165, 250, 0.08);
+      border-radius: 16px;
+      color: #d8e9ff;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 14px 54px 0;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+    }
+
+    .left-col,
+    .right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(13, 24, 43, 0.92), rgba(10, 18, 32, 0.97));
+      border: 1px solid var(--stroke);
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      letter-spacing: 0.01em;
+      color: #f4f8ff;
+    }
+
+    .pipeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .pipeline-item {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 13px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(148, 163, 184, 0.10);
+    }
+
+    .icon {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.95), rgba(52, 211, 153, 0.9));
+    }
+
+    .pipeline-item strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .pipeline-item span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .kill-tests {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .kill {
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 64px;
+    }
+
+    .kill .check {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      color: #02130a;
+      background: linear-gradient(135deg, #bbf7d0, #22c55e);
+      flex: 0 0 auto;
+    }
+
+    .kill b {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+
+    .kill em {
+      display: block;
+      font-style: normal;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02));
+      border: 1px solid rgba(148, 163, 184, 0.10);
+    }
+
+    .stat .value {
+      font-size: 36px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .stat .label {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .severity {
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .sev-row {
+      display: grid;
+      grid-template-columns: 96px 1fr 34px;
+      gap: 12px;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .sev-tag {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #cad6ea;
+    }
+
+    .bar {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.14);
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .bar > span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+    }
+
+    .sev-high span { width: 28%; background: linear-gradient(90deg, #fb7185, #ef4444); }
+    .sev-med span { width: 52%; background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+    .sev-low span { width: 84%; background: linear-gradient(90deg, #60a5fa, #34d399); }
+
+    .footer {
+      position: absolute;
+      left: 54px;
+      right: 54px;
+      bottom: 34px;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      padding-top: 18px;
+      border-top: 1px solid rgba(148, 163, 184, 0.14);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer strong {
+      color: #eff6ff;
+      font-weight: 600;
+    }
+
+    .notes {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <section class="slide" role="img" aria-label="CTO Technical Architecture slide">
+    <header class="header">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> JAGM IT Company Executive Briefing</div>
+        <h1>CTO Technical Architecture</h1>
+        <div class="subtitle">
+          Production-ready GitHub-native audit orchestration designed for fast validation, repeatable evidence,
+          and executive visibility across every target repository.
+        </div>
+      </div>
+      <div class="badge">Dark-theme technical slide · 16:9 · 1280×720</div>
+    </header>
+
+    <main class="content">
+      <div class="left-col">
+        <section class="card">
+          <h2>Audit pipeline</h2>
+          <div class="pipeline">
+            <div class="pipeline-item">
+              <div class="icon">P</div>
+              <div>
+                <strong>Python-based, GitHub-native</strong>
+                <span>Orchestrates repository discovery, validation, evidence capture, and report generation from a single Python workflow.</span>
+              </div>
+            </div>
+            <div class="pipeline-item">
+              <div class="icon">C</div>
+              <div>
+                <strong>CI/CD on pull requests</strong>
+                <span>GitHub Actions runs automatically on PRs to ensure every audit change is verified before merge.</span>
+              </div>
+            </div>
+            <div class="pipeline-item">
+              <div class="icon">N</div>
+              <div>
+                <strong>Notification system</strong>
+                <span>GitHub updates and desktop toast notifications keep stakeholders informed in real time.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>5 kill-tests</h2>
+          <div class="kill-tests">
+            <div class="kill"><div class="check">✓</div><div><b>Secrets</b><em>Credential exposure prevention</em></div></div>
+            <div class="kill"><div class="check">✓</div><div><b>CI</b><em>Workflow execution and gating</em></div></div>
+            <div class="kill"><div class="check">✓</div><div><b>Branch protection</b><em>Merge rules and review controls</em></div></div>
+            <div class="kill"><div class="check">✓</div><div><b>Security docs</b><em>Policy and compliance coverage</em></div></div>
+            <div class="kill" style="grid-column: 1 / -1;"><div class="check">✓</div><div><b>YAML</b><em>Workflow and configuration validation</em></div></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="right-col">
+        <section class="card">
+          <h2>Delivery evidence</h2>
+          <div class="stats">
+            <div class="stat">
+              <div class="value">4</div>
+              <div class="label">Real audits completed on target repos, with repeatable results and traceable findings.</div>
+            </div>
+            <div class="stat">
+              <div class="value">100%</div>
+              <div class="label">Kill-test pass rate across the production audit pipeline.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>PDF generator</h2>
+          <div style="color: var(--muted); font-size: 14px; line-height: 1.55; margin-bottom: 14px;">
+            Generates professional reports with severity color coding for fast executive review and audit readiness.
+          </div>
+          <div class="severity">
+            <div class="sev-row">
+              <div class="sev-tag">High</div>
+              <div class="bar sev-high"><span></span></div>
+              <div style="color:#fca5a5; text-align:right;">1</div>
+            </div>
+            <div class="sev-row">
+              <div class="sev-tag">Medium</div>
+              <div class="bar sev-med"><span></span></div>
+              <div style="color:#fdba74; text-align:right;">3</div>
+            </div>
+            <div class="sev-row">
+              <div class="sev-tag">Low</div>
+              <div class="bar sev-low"><span></span></div>
+              <div style="color:#86efac; text-align:right;">8</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Executive takeaway</h2>
+          <div style="font-size: 15px; line-height: 1.65; color: #dbe7f7;">
+            The architecture is built for audit speed, policy enforcement, and leadership reporting — all inside GitHub,
+            all automated, and all validated.
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div><strong>JAGM IT Company</strong> · CTO technical architecture overview</div>
+      <div>Pipeline status: production-ready</div>
+    </footer>
+
+    <aside class="notes" aria-hidden="true">
+      Speaker notes: I am CTO. Our audit pipeline is production-ready. 5 kill-tests all pass. CI workflow runs automatically.
+    </aside>
+  </section>
+</body>
+</html>

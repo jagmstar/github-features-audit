@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAGM IT Company — Team Presentation</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; color: #e0e0e0; font-family: 'Segoe UI', system-ui, sans-serif; overflow: hidden; }
+
+.deck { width: 100vw; height: 100vh; position: relative; }
+.slide { 
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  display: none; flex-direction: column; justify-content: center; align-items: center;
+  padding: 40px 60px;
+}
+.slide.active { display: flex; }
+
+/* Title slide */
+.title-slide { text-align: center; }
+.title-slide h1 { font-size: 3.5em; color: #fff; margin-bottom: 20px; letter-spacing: 2px; }
+.title-slide h2 { font-size: 1.5em; color: #6464ff; font-weight: 300; margin-bottom: 40px; }
+.title-slide .team { color: #888; font-size: 1.1em; line-height: 2; }
+.title-slide .date { color: #555; margin-top: 40px; font-size: 0.9em; }
+
+/* Role slides */
+.role-slide h2 { 
+  font-size: 2.5em; color: #6464ff; margin-bottom: 30px;
+  border-bottom: 2px solid #333; padding-bottom: 15px; width: 100%;
+}
+.role-slide .role-badge {
+  display: inline-block; background: #6464ff; color: #fff; padding: 5px 15px;
+  border-radius: 4px; font-size: 0.8em; margin-bottom: 20px; text-transform: uppercase;
+}
+.role-slide .content { font-size: 1.3em; line-height: 1.8; max-width: 900px; }
+.role-slide ul { list-style: none; padding-left: 0; }
+.role-slide li { padding: 8px 0; border-bottom: 1px solid #222; }
+.role-slide li:before { content: "▸ "; color: #6464ff; }
+.role-slide .metric { color: #4caf50; font-weight: bold; }
+.role-slide .warning { color: #ff9800; }
+.role-slide .danger { color: #f44336; }
+
+/* Summary slide */
+.summary-slide h2 { font-size: 2.5em; color: #4caf50; margin-bottom: 30px; }
+.summary-slide .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 900px; }
+.summary-slide .card { background: #1a1a1a; padding: 25px; border-radius: 8px; border: 1px solid #333; }
+.summary-slide .card h3 { color: #6464ff; margin-bottom: 10px; }
+.summary-slide .card .number { font-size: 2.5em; color: #4caf50; font-weight: bold; }
+
+/* Navigation */
+.nav { 
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 15px; align-items: center; z-index: 100;
+  background: rgba(20,20,20,0.9); padding: 10px 20px; border-radius: 30px;
+  border: 1px solid #333;
+}
+.nav button {
+  background: #333; color: #fff; border: none; padding: 8px 16px;
+  border-radius: 4px; cursor: pointer; font-size: 0.9em;
+}
+.nav button:hover { background: #6464ff; }
+.nav .counter { color: #888; font-size: 0.9em; min-width: 60px; text-align: center; }
+.nav .progress {
+  position: fixed; top: 0; left: 0; height: 3px; background: #6464ff; transition: width 0.3s;
+}
+
+/* Speaker notes */
+.notes { 
+  position: fixed; bottom: 60px; right: 20px; max-width: 400px;
+  background: rgba(30,30,30,0.95); padding: 15px; border-radius: 8px;
+  border: 1px solid #444; font-size: 0.85em; color: #aaa;
+  display: none; max-height: 200px; overflow-y: auto;
+}
+.notes.show { display: block; }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- Slide 0: Title -->
+<div class="slide title-slide active" data-role="Company">
+  <h1>JAGM IT COMPANY</h1>
+  <h2>AI-SDLC Repository Audit Service</h2>
+  <div class="team">
+    CEO · CTO · CFO · CMO · QAO · DevOps<br>
+    <span style="color: #4caf50;">12 roles · 61 commits · 95 files · 4 real audits</span>
+  </div>
+  <div class="date">Team Presentation — July 24, 2026</div>
+</div>
+
+<!-- Slide 1: CEO -->
+<div class="slide role-slide" data-role="CEO">
+  <span class="role-badge">CEO</span>
+  <h2>CEO Strategy</h2>
+  <div class="content">
+    <ul>
+      <li>Product: <span class="metric">AI-SDLC Repo Audit</span> — $300 to $5K/mo</li>
+      <li>Team: <span class="metric">12 roles</span> working in parallel</li>
+      <li>Revenue target: <span class="metric">$9K Q1</span></li>
+      <li><span class="metric">15 target companies</span> identified</li>
+      <li>Cost: <span class="metric">$0</span> (AI agents as workforce)</li>
+      <li>Margin: <span class="metric">100%</span></li>
+      <li>Next milestone: <span class="warning">first paying client</span></li>
+      <li>Blocker: <span class="danger">Roman's outreach to clients</span></li>
+    </ul>
+  </div>
+  <div class="notes">I am CEO of JAGM IT Company. Our strategy is clear: zero-cost AI workforce, GitHub-native audit service, revenue from day 1.</div>
+</div>
+
+<!-- Slide 2: CTO -->
+<div class="slide role-slide" data-role="CTO">
+  <span class="role-badge">CTO</span>
+  <h2>CTO Technical Architecture</h2>
+  <div class="content">
+    <ul>
+      <li>Audit pipeline: <span class="metric">Python-based, GitHub-native</span></li>
+      <li>5 kill-tests: secrets, CI, branch protection, security docs, YAML</li>
+      <li>CI/CD: <span class="metric">GitHub Actions</span>, automated on PR</li>
+      <li>PDF generator: professional reports with severity color coding</li>
+      <li>Notification system: GitHub + toast</li>
+      <li><span class="metric">4 real audits</span> completed on target repos</li>
+      <li>Landing page deployed to <span class="metric">GitHub Pages</span></li>
+    </ul>
+  </div>
+  <div class="notes">I am CTO. Our audit pipeline is production-ready. 5 kill-tests all pass. CI workflow runs automatically.</div>
+</div>
+
+<!-- Slide 3: CFO -->
+<div class="slide role-slide" data-role="CFO">
+  <span class="role-badge">CFO</span>
+  <h2>CFO Financial Model</h2>
+  <div class="content">
+    <ul>
+      <li>Cost: <span class="metric">$0</span> (AI agents as workforce)</li>
+      <li>Margin: <span class="metric">100%</span></li>
+      <li>Basic: <span class="metric">$300</span> / audit</li>
+      <li>Audit+Fix: <span class="metric">$1K-$3K</span></li>
+      <li>Retainer: <span class="metric">$1K-$5K/mo</span></li>
+      <li>Break-even: <span class="metric">1 client</span></li>
+      <li>Q1 forecast: <span class="metric">$9,000</span></li>
+    </ul>
+  </div>
+  <div class="notes">I am CFO. Zero cost structure. First client = break-even. Q1 target $9K.</div>
+</div>
+
+<!-- Slide 4: CMO -->
+<div class="slide role-slide" data-role="CMO">
+  <span class="role-badge">CMO</span>
+  <h2>CMO Marketing & Sales</h2>
+  <div class="content">
+    <ul>
+      <li>7-day marketing campaign ready</li>
+      <li><span class="metric">15 target companies</span> identified</li>
+      <li>LinkedIn + Twitter + Reddit strategy</li>
+      <li>Case study published</li>
+      <li>Social posts ready (LinkedIn, Twitter, Reddit)</li>
+      <li>Outreach tracker with follow-up scripts</li>
+      <li>Landing page live on GitHub Pages</li>
+    </ul>
+  </div>
+  <div class="notes">I am CMO. 15 targets identified. Social campaign ready. Case study published.</div>
+</div>
+
+<!-- Slide 5: QAO -->
+<div class="slide role-slide" data-role="QAO">
+  <span class="role-badge">QAO</span>
+  <h2>QAO Quality Assurance</h2>
+  <div class="content">
+    <ul>
+      <li><span class="metric">8-point quality gate</span> for every audit report</li>
+      <li>5 kill-tests documented (all pass)</li>
+      <li>Final audit: no empty files</li>
+      <li><span class="warning">1 placeholder found</span> (docs/debate-24h-sprint.md)</li>
+      <li>Ready for delivery after cleanup</li>
+    </ul>
+  </div>
+  <div class="notes">I am QAO Lead. Every audit report goes through 8-point quality gate. 5 kill-tests verify pipeline accuracy.</div>
+</div>
+
+<!-- Slide 6: DevOps -->
+<div class="slide role-slide" data-role="DevOps">
+  <span class="role-badge">DevOps</span>
+  <h2>DevOps Infrastructure</h2>
+  <div class="content">
+    <ul>
+      <li>CI workflow: audit runs on every <span class="metric">PR</span></li>
+      <li>GitHub Pages: landing page deployed</li>
+      <li>Notification system: <span class="metric">GitHub + toast</span></li>
+      <li>Audit request template (issue template)</li>
+      <li><span class="metric">5 next sprint tickets</span> (#34-#38)</li>
+    </ul>
+  </div>
+  <div class="notes">I am DevOps Lead. CI runs audit on every PR. Notifications sent automatically. 5 tickets ready for next sprint.</div>
+</div>
+
+<!-- Slide 7: Summary -->
+<div class="slide summary-slide" data-role="Team">
+  <h2>Team Summary</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Commits</h3>
+      <div class="number">61</div>
+    </div>
+    <div class="card">
+      <h3>Files</h3>
+      <div class="number">95</div>
+    </div>
+    <div class="card">
+      <h3>Real Audits</h3>
+      <div class="number">4</div>
+    </div>
+    <div class="card">
+      <h3>Roles</h3>
+      <div class="number">12</div>
+    </div>
+    <div class="card">
+      <h3>Server Agents</h3>
+      <div class="number">22</div>
+    </div>
+    <div class="card">
+      <h3>Revenue</h3>
+      <div class="number" style="color: #f44336;">$0</div>
+    </div>
+  </div>
+  <div style="margin-top: 30px; color: #888;">
+    Next: Roman sends outreach to 15 target companies → first paying client
+  </div>
+</div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prev()">◀ Prev</button>
+  <span class="counter" id="counter">1 / 8</span>
+  <button onclick="next()">Next ▶</button>
+  <button onclick="toggleNotes()" title="Speaker notes">📝</button>
+</div>
+<div class="progress" id="progress" style="width: 12.5%"></div>
+<div class="notes" id="notes"></div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+const counter = document.getElementById('counter');
+const progress = document.getElementById('progress');
+const notes = document.getElementById('notes');
+
+function show(n) {
+  slides[current].classList.remove('active');
+  current = (n + total) % total;
+  slides[current].classList.add('active');
+  counter.textContent = (current + 1) + ' / ' + total;
+  progress.style.width = ((current + 1) / total * 100) + '%';
+  
+  // Show notes
+  const noteEl = slides[current].querySelector('.notes');
+  if (noteEl && notes.classList.contains('show')) {
+    notes.textContent = noteEl.textContent;
+  } else {
+    notes.classList.remove('show');
+  }
+}
+
+function next() { show(current + 1); }
+function prev() { show(current - 1); }
+function toggleNotes() {
+  notes.classList.toggle('show');
+  if (notes.classList.contains('show')) {
+    const noteEl = slides[current].querySelector('.notes');
+    notes.textContent = noteEl ? noteEl.textContent : 'No notes for this slide.';
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') next();
+  if (e.key === 'ArrowLeft') prev();
+  if (e.key === 'n') toggleNotes();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CEO Strategy - JAGM IT Company</title>
+  <style>
+    :root {
+      --bg-0: #07111f;
+      --bg-1: #0b1730;
+      --bg-2: #102345;
+      --card: rgba(12, 22, 40, 0.78);
+      --card-border: rgba(167, 189, 255, 0.18);
+      --text: #f4f7ff;
+      --muted: #aab7d1;
+      --accent: #7c9cff;
+      --accent-2: #30d5c8;
+      --accent-3: #ffd166;
+      --success: #5bffb0;
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top left, rgba(124, 156, 255, 0.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(48, 213, 200, 0.12), transparent 30%),
+        linear-gradient(135deg, var(--bg-0), var(--bg-1) 45%, var(--bg-2));
+      font-family: "Segoe UI", Inter, Arial, sans-serif;
+      color: var(--text);
+    }
+
+    .slide {
+      width: 1280px;
+      height: 720px;
+      margin: 0 auto;
+      position: relative;
+      padding: 54px 60px 44px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+        transparent;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.25), transparent 80%);
+      pointer-events: none;
+      opacity: 0.55;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 24px rgba(124, 156, 255, 0.55);
+    }
+
+    .brand-text {
+      font-size: 15px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.04);
+      color: #dce7ff;
+      font-size: 13px;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+    }
+
+    .badge-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--success);
+      box-shadow: 0 0 14px rgba(91, 255, 176, 0.8);
+    }
+
+    .hero {
+      margin-top: 44px;
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .headline {
+      padding: 28px 28px 24px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: 72px;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 600px;
+      font-size: 23px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .highlight-row {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      background: rgba(124, 156, 255, 0.12);
+      border: 1px solid rgba(124, 156, 255, 0.28);
+      color: #dbe5ff;
+    }
+
+    .chip.alt {
+      background: rgba(48, 213, 200, 0.12);
+      border-color: rgba(48, 213, 200, 0.28);
+    }
+
+    .metrics {
+      display: grid;
+      gap: 16px;
+    }
+
+    .metric-card {
+      padding: 22px 22px 20px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(17, 28, 53, 0.92), rgba(12, 22, 40, 0.82));
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -55% auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124, 156, 255, 0.2), transparent 65%);
+      pointer-events: none;
+    }
+
+    .metric-label {
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .metric-value {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    .metric-desc {
+      margin: 8px 0 0;
+      font-size: 15px;
+      line-height: 1.45;
+      color: #bdc9e4;
+      max-width: 320px;
+    }
+
+    .content-grid {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .panel {
+      padding: 24px 24px 22px;
+      border-radius: 24px;
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .panel-title {
+      margin: 0 0 16px;
+      font-size: 17px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #d7e2ff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .panel-title::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent-3);
+      box-shadow: 0 0 18px rgba(255, 209, 102, 0.65);
+    }
+
+    .plan-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .plan-item {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .plan-number {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #08111f;
+      background: linear-gradient(135deg, var(--accent-3), #ffd89b);
+      box-shadow: 0 12px 28px rgba(255, 209, 102, 0.2);
+    }
+
+    .plan-copy h3 {
+      margin: 0 0 4px;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .plan-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .right-stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .team-box {
+      display: grid;
+      gap: 12px;
+    }
+
+    .role-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .role {
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #edf3ff;
+      background: rgba(124, 156, 255, 0.11);
+      border: 1px solid rgba(124, 156, 255, 0.22);
+    }
+
+    .role.emphasis {
+      background: rgba(48, 213, 200, 0.13);
+      border-color: rgba(48, 213, 200, 0.22);
+      color: #dffef9;
+    }
+
+    .footer-band {
+      margin-top: 20px;
+      padding: 18px 22px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      background: linear-gradient(135deg, rgba(124, 156, 255, 0.16), rgba(48, 213, 200, 0.1));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #eff4ff;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-band strong {
+      font-size: 18px;
+    }
+
+    .footer-band span {
+      color: #c8d4f1;
+      font-size: 15px;
+    }
+
+    .speaker-notes {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="slide" role="img" aria-label="CEO Strategy slide for JAGM IT Company">
+    <div class="grid-overlay"></div>
+
+    <section class="topbar">
+      <div class="brand" aria-label="JAGM IT Company">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-text">JAGM IT Company</div>
+      </div>
+      <div class="badge"><span class="badge-dot"></span> 30-Day Growth Strategy</div>
+    </section>
+
+    <section class="hero">
+      <div class="headline">
+        <h1>CEO Strategy</h1>
+        <p class="subtitle">
+          A focused 30-day plan to launch, sell, and scale the AI-SDLC Repo Audit offer with a lean, parallel execution model.
+        </p>
+        <div class="highlight-row">
+          <div class="chip">Zero-cost AI workforce</div>
+          <div class="chip alt">GitHub-native service delivery</div>
+          <div class="chip">Revenue from day 1</div>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric-card">
+          <div class="metric-label">Offer</div>
+          <p class="metric-value">AI-SDLC Repo Audit</p>
+          <p class="metric-desc">Positioned as a recurring service priced from <strong>$300 to $5K per month</strong>, tailored to customer maturity and audit scope.</p>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Goal</div>
+          <p class="metric-value">$9K Q1 Revenue</p>
+          <p class="metric-desc">Build momentum through fast discovery, targeted outreach, and immediate conversion into paid engagements.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-grid">
+      <div class="panel">
+        <div class="panel-title">30-Day Execution Plan</div>
+        <ul class="plan-list">
+          <li class="plan-item">
+            <div class="plan-number">01</div>
+            <div class="plan-copy">
+              <h3>Productize the offer</h3>
+              <p>Package the AI-SDLC Repo Audit into a clear, repeatable service with defined outcomes, scope, and pricing tiers.</p>
+            </div>
+          </li>
+          <li class="plan-item">
+            <div class="plan-number">02</div>
+            <div class="plan-copy">
+              <h3>Target 15 companies</h3>
+              <p>Focus on the highest-fit prospects first, using GitHub signals and company maturity to prioritize outreach.</p>
+            </div>
+          </li>
+          <li class="plan-item">
+            <div class="plan-number">03</div>
+            <div class="plan-copy">
+              <h3>Close first paying client</h3>
+              <p>Move quickly from audit conversation to proposal, then convert the first deal to validate the market and sharpen delivery.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="right-stack">
+        <div class="panel team-box">
+          <div class="panel-title">Parallel Team Model</div>
+          <div class="role-cloud" aria-label="12 roles working in parallel">
+            <div class="role emphasis">CEO</div>
+            <div class="role">CTO</div>
+            <div class="role">CISO</div>
+            <div class="role">CFO</div>
+            <div class="role">CMO</div>
+            <div class="role">PMO</div>
+            <div class="role">Sales Lead</div>
+            <div class="role">SDR</div>
+            <div class="role">AI Engineer</div>
+            <div class="role">QA Lead</div>
+            <div class="role">DevOps</div>
+            <div class="role">Tech Writer</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Business Priorities</div>
+          <ul class="plan-list">
+            <li class="plan-item">
+              <div class="plan-number">A</div>
+              <div class="plan-copy">
+                <h3>15 target companies identified</h3>
+                <p>Build the pipeline around companies that can benefit from faster, safer AI-SDLC repo auditing.</p>
+              </div>
+            </li>
+            <li class="plan-item">
+              <div class="plan-number">B</div>
+              <div class="plan-copy">
+                <h3>First paying client is the milestone</h3>
+                <p>Once the first client pays, the playbook is proven and the offer can scale into repeatable monthly revenue.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer-band">
+      <strong>30 days to prove the model</strong>
+      <span>Lead with speed, deliver value through audits, and convert GitHub-native insight into recurring revenue.</span>
+    </section>
+
+    <div class="speaker-notes" hidden>
+      I am CEO of JAGM IT Company. Our strategy is clear: zero-cost AI workforce, GitHub-native audit service, revenue from day 1.
+    </div>
+  </main>
+</body>
+</html>

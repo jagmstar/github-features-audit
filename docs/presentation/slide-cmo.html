@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMO Marketing & Sales</title>
+  <style>
+    :root {
+      --bg: #08111d;
+      --bg-2: #101b2e;
+      --panel: rgba(14, 23, 40, 0.94);
+      --panel-border: rgba(103, 163, 255, 0.22);
+      --text: #eef4ff;
+      --muted: #a7b6d6;
+      --accent: #67a3ff;
+      --accent-2: #ff8ac7;
+      --accent-3: #66e0a3;
+      --warning: #f7c948;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      width: 1280px;
+      height: 720px;
+      margin: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 18%, rgba(103, 163, 255, 0.16), transparent 28%),
+        radial-gradient(circle at 82% 14%, rgba(255, 138, 199, 0.14), transparent 26%),
+        radial-gradient(circle at 60% 82%, rgba(102, 224, 163, 0.10), transparent 28%),
+        linear-gradient(145deg, var(--bg) 0%, var(--bg-2) 100%);
+      color: var(--text);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .slide {
+      width: 1280px;
+      height: 720px;
+      padding: 54px 64px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .eyebrow {
+      color: var(--accent-2);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 58px;
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 20px;
+      max-width: 860px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-top: 28px;
+      flex: 1;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(10px);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .step {
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      min-height: 122px;
+    }
+
+    .step .index {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      font-weight: 800;
+      color: #07111c;
+      background: linear-gradient(135deg, var(--accent), var(--accent-3));
+      margin-bottom: 12px;
+    }
+
+    .step .title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .step .text {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .channel-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .channel {
+      padding: 18px 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: linear-gradient(180deg, rgba(103, 163, 255, 0.12), rgba(103, 163, 255, 0.05));
+    }
+
+    .channel strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .channel span {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .targets {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.01em;
+    }
+
+    .speaker-notes {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.18);
+      border: 1px dashed rgba(167, 182, 214, 0.28);
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .speaker-notes .label {
+      color: var(--warning);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-top: 18px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(102, 224, 163, 0.10);
+      border: 1px solid rgba(102, 224, 163, 0.22);
+      color: var(--accent-3);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+<body>
+  <main class="slide" role="presentation" aria-label="CMO Marketing and Sales slide">
+    <section>
+      <div class="eyebrow">JAGM IT Company · CMO</div>
+      <h1>CMO Marketing &amp; Sales</h1>
+      <div class="subtitle">A focused seven-day outreach system built to generate attention, proof, and direct sales momentum across the highest-signal channels.</div>
+    </section>
+
+    <section class="content-grid" aria-label="Marketing and sales highlights">
+      <div class="panel">
+        <div class="channel-list">
+          <div class="channel">
+            <strong>7-day campaign</strong>
+            <span>A compact launch window designed to create urgency and fast feedback.</span>
+          </div>
+          <div class="channel">
+            <strong>15 target companies</strong>
+            <span>Named prospects identified for immediate outreach and follow-up.</span>
+          </div>
+          <div class="channel">
+            <strong>Case study published</strong>
+            <span>Proof content is ready to support trust and conversion.</span>
+          </div>
+        </div>
+
+        <div class="targets" aria-label="Target channels">
+          <span class="chip">LinkedIn</span>
+          <span class="chip">Twitter</span>
+          <span class="chip">Reddit</span>
+          <span class="chip">Direct outreach</span>
+          <span class="chip">Content proof</span>
+        </div>
+      </div>
+
+      <aside class="panel">
+        <div class="timeline">
+          <div class="step">
+            <div class="index">1</div>
+            <div class="title">Identify</div>
+            <div class="text">15 targets selected with clear fit and contact paths.</div>
+          </div>
+          <div class="step">
+            <div class="index">2</div>
+            <div class="title">Activate</div>
+            <div class="text">Social posts are ready for launch and engagement.</div>
+          </div>
+          <div class="step">
+            <div class="index">3</div>
+            <div class="title">Publish</div>
+            <div class="text">Case study is live to reinforce credibility.</div>
+          </div>
+          <div class="step">
+            <div class="index">4</div>
+            <div class="title">Convert</div>
+            <div class="text">Campaign funnel turns attention into sales conversations.</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="footer">
+      <div class="badge">Fast awareness · proof-led selling · multi-channel outreach</div>
+      <div class="speaker-notes">
+        <div class="label">Speaker Notes</div>
+        I am CMO. 15 targets identified. Social campaign ready. Case study published.
+      </div>
+    </section>
+  </main>
+</body>
+</html>
