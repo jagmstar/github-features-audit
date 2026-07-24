@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAGM IT Company — C-Level Debate</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d1117; color: #c9d1d9; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; padding: 30px 0; border-bottom: 1px solid #30363d; margin-bottom: 30px; }
+        .header h1 { color: #58a6ff; font-size: 2em; }
+        .header p { color: #8b949e; margin-top: 5px; }
+        .debate { margin: 20px 0; }
+        .twin { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin: 15px 0; }
+        .twin-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .twin-badge { padding: 4px 10px; border-radius: 12px; font-size: 0.85em; font-weight: bold; }
+        .ceo { background: #238636; color: white; }
+        .cto { background: #1f6feb; color: white; }
+        .ciso { background: #da3633; color: white; }
+        .cmo { background: #8957e5; color: white; }
+        .cfo { background: #d29922; color: black; }
+        .qao { background: #1f6feb; color: white; }
+        .pmo { background: #238636; color: white; }
+        .twin-body { color: #c9d1d9; }
+        .twin-body strong { color: #58a6ff; }
+        .twin-body .blocker { color: #f85149; font-style: italic; }
+        .twin-body .plan { color: #3fb950; }
+        .footer { text-align: center; padding: 30px; color: #8b949e; }
+        a { color: #58a6ff; }
+        .summary { background: #161b22; border: 1px solid #58a6ff; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .summary h2 { color: #58a6ff; margin-bottom: 10px; }
+        .summary table { width: 100%; border-collapse: collapse; }
+        .summary th, .summary td { padding: 8px; border-bottom: 1px solid #30363d; text-align: left; }
+        .summary th { color: #8b949e; font-size: 0.85em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>C-Level Team Debate</h1>
+            <p>"How to get first paying client in 7 days" | 2026-07-24</p>
+            <p><a href="https://github.com/jagmstar/github-features-audit/issues/18">View on GitHub →</a></p>
+        </div>
+
+        <div class="summary">
+            <h2>Summary</h2>
+            <table>
+                <tr><th>Twin</th><th>Position</th><th>Identified Blocker</th></tr>
+                <tr><td><strong>CEO</strong></td><td>Stop building, start selling</td><td class="blocker">Inaction</td></tr>
+                <tr><td><strong>CTO</strong></td><td>Products aren't ready, need pipeline</td><td class="blocker">Product</td></tr>
+                <tr><td><strong>CISO</strong></td><td>We look unprofessional without security</td><td class="blocker">Security</td></tr>
+                <tr><td><strong>CMO</strong></td><td>Pre-sell, don't pre-build. Fear of rejection</td><td class="blocker">Fear</td></tr>
+                <tr><td><strong>CFO</strong></td><td>$300 is a test, not revenue. 0 contacts</td><td class="blocker">No contact list</td></tr>
+                <tr><td><strong>QAO</strong></td><td>Quality is the product. 0 accountability</td><td class="blocker">No accountability</td></tr>
+            </table>
+        </div>
+
+        <div class="debate">
+            <div class="twin">
+                <div class="twin-header"><span class="twin-badge ceo">CEO</span></div>
+                <div class="twin-body">
+                    <p>Ми побудували інфраструктуру замість продажів. 28 репо, 400 тікетів, 15 deliverables — але жодного дзвінка клієнту. Roman не відправив жодного матеріалу жодному клієнту. Це не проблема продукту — продукти готові. Це проблема дії.</p>
+                    <p class="plan"><strong>Plan:</strong> Roman відправляє one-pager 5 клієнтам сьогодні.</p>
+                </div>
+            </div>
+
+            <div class="twin">
+                <div class="twin-header"><span class="twin-badge cto">CTO</span></div>
+                <div class="twin-body">
+                    <p>Частково згоден, частково ні. "Продукти готові" — перебільшення. AI-SDLC Repo Audit найближчий, але: де automated audit pipeline? Якщо клієнт заплатить $300 — скільки часу займе доставка?</p>
+                    <p class="plan"><strong>Plan:</strong> Дні 1-2: Roman відправляє. Дні 3-5: Я будую audit pipeline на GitHub Actions. Дні 6-7: QAO пише kill-tests.</p>
+                </div>
+            </div>
+
+            <div class="twin">
+                <div class="twin-header"><span class="twin-badge ciso">CISO</span></div>
+                <div class="twin-body">
+                    <p>Категорично не згоден що це лише проблема дії. Ми продаємо audit а наш власний код не сканується на вразливості. Це як стоматолог без зубів. CodeQL + secret scanning + CODEOWNERS за 7 днів.</p>
+                    <p class="plan"><strong>Plan:</strong> CodeQL на public репо, secret scanning, CODEOWNERS, security audit checklist.</p>
+                </div>
+            </div>
+
+            <div class="twin">
+                <div class="twin-header"><span class="twin-badge cmo">CMO</span></div>
+                <div class="twin-body">
+                    <p>Pre-sell, не pre-build. Всі дивляться всередину — ніхто не дивиться на клієнта. Ми не знаємо кому продавати. Не "5 компаній" — не "3 імені". Ми не знаємо НІ ОДНОГО конкретного клієнта.</p>
+                    <p class="blocker"><strong>Real blocker:</strong> Страх відмови. Ми будуємо бо будувати безпечно.</p>
+                    <p class="plan"><strong>Plan:</strong> Roman відправляє сьогодні. CTO будує завтра. CISO захищає післязавтра. Все одночасно.</p>
+                </div>
+            </div>
+
+            <div class="twin">
+                <div class="twin-header"><span class="twin-badge cfo">CFO</span></div>
+                <div class="twin-body">
+                    <p>$300 — це не ціна. Це тест. Перший клієнт за $300 — це reference. Reference = можливість продати $3K sprint = $5K/mo retainer.</p>
+                    <p class="blocker"><strong>Real blocker:</strong> Відсутність списку контактів. 0 імен. 0 компаній. 0 emailів.</p>
+                    <p class="plan"><strong>Plan:</strong> 10 контактів з листами. CTO будує паралельно. День 7 — звіт з цифрами.</p>
+                </div>
+            </div>
+
+            <div class="twin">
+                <div class="twin-header"><span class="twin-badge qao">QAO</span></div>
+                <div class="twin-body">
+                    <p>Якість — це не gate перед продажем. Якість — це продукт. Що буде коли клієнт купить? Який quality gate між "клієнт заплатив" і "клієнт отримав звіт"? Жодного.</p>
+                    <p class="blocker"><strong>Real blocker:</strong> Відсутність відповідальності. Агенти закривають тікети без доказів.</p>
+                    <p class="plan"><strong>Plan:</strong> 1 день kill-tests, 1 день pipeline, 30 хв листи, 1 день CodeQL. Все паралельно. Через 2 дні Roman відправляє.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><a href="index.html">← Presentation</a> | <a href="team.html">Team</a> | <a href="status.html">Status</a></p>
+            <p>JAGM IT Company — AI-SDLC Team of Digital Twins</p>
+        </div>
+    </div>
+</body>
+</html>
