@@ -1,313 +1,676 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAGM IT Company — GitHub Features Audit</title>
+    <meta name="description" content="JAGM IT Company delivers AI-powered GitHub repository audits with human review, actionable findings, and optional remediation support.">
+    <title>JAGM IT Company | AI-Powered GitHub Repository Audit</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d1117; color: #c9d1d9; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { text-align: center; padding: 60px 20px 40px; }
-        .header h1 { font-size: 2.5em; color: #58a6ff; margin-bottom: 10px; }
-        .header p { font-size: 1.2em; color: #8b949e; }
-        .stats { display: flex; justify-content: center; gap: 40px; margin: 40px 0; flex-wrap: wrap; }
-        .stat { text-align: center; }
-        .stat .num { font-size: 2.5em; color: #3fb950; font-weight: bold; }
-        .stat .label { color: #8b949e; font-size: 0.9em; }
-        .section { margin: 40px 0; }
-        .section h2 { color: #58a6ff; font-size: 1.5em; margin-bottom: 20px; border-bottom: 1px solid #30363d; padding-bottom: 10px; }
-        .roles { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
-        .role { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 15px; }
-        .role .name { color: #58a6ff; font-weight: bold; margin-bottom: 5px; }
-        .role .file { color: #8b949e; font-size: 0.85em; }
-        .role .commit { color: #3fb950; font-size: 0.8em; }
-        .reports { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
-        .report { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 15px; }
-        .report .role-tag { display: inline-block; background: #1f6feb; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8em; margin-bottom: 8px; }
-        .report .title { color: #c9d1d9; font-size: 0.95em; }
-        .plan { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; }
-        .plan h3 { color: #58a6ff; margin: 15px 0 10px; }
-        .plan ul { list-style: none; padding-left: 0; }
-        .plan li { padding: 5px 0; border-bottom: 1px solid #21262d; }
-        .plan li:before { content: "☐ "; color: #8b949e; }
-        .findings { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; }
-        .finding { padding: 10px 0; border-bottom: 1px solid #21262d; }
-        .finding .title { color: #f85149; font-weight: bold; }
-        .finding .desc { color: #8b949e; font-size: 0.9em; }
-        .footer { text-align: center; padding: 40px 20px; color: #8b949e; }
-        .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.8em; margin: 2px; }
-        .badge-green { background: #238636; color: white; }
-        .badge-red { background: #da3633; color: white; }
-        .badge-yellow { background: #d29922; color: black; }
-        a { color: #58a6ff; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        :root {
+            --bg: #0b0f14;
+            --bg-elevated: #111826;
+            --bg-card: #151d2e;
+            --border: rgba(148, 163, 184, 0.18);
+            --text: #e5eefc;
+            --muted: #9fb0c8;
+            --muted-2: #7b8ca6;
+            --primary: #66a3ff;
+            --primary-2: #8b5cf6;
+            --accent: #21c55d;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+            --radius: 20px;
+            --max: 1180px;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(102, 163, 255, 0.18), transparent 35%),
+                radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.15), transparent 30%),
+                linear-gradient(180deg, #08101b 0%, #0b0f14 36%, #0b0f14 100%);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; display: block; }
+
+        .page {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 10px 0 28px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, rgba(102,163,255,0.28), rgba(139,92,246,0.28));
+            border: 1px solid rgba(255,255,255,0.14);
+            box-shadow: var(--shadow);
+        }
+
+        .brand small { display: block; color: var(--muted); font-weight: 500; }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .nav a:hover { color: var(--text); }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.3fr 0.9fr;
+            gap: 28px;
+            align-items: stretch;
+            padding: 28px 0 10px;
+        }
+
+        .hero-copy,
+        .hero-panel,
+        .section,
+        .cta {
+            background: rgba(17, 24, 38, 0.82);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+        }
+
+        .hero-copy { padding: 34px; }
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #cfe1ff;
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: rgba(102, 163, 255, 0.12);
+            border: 1px solid rgba(102, 163, 255, 0.24);
+            border-radius: 999px;
+            padding: 8px 12px;
+        }
+
+        h1 {
+            margin: 18px 0 14px;
+            font-size: clamp(2.4rem, 5vw, 4.8rem);
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+        }
+
+        .lead {
+            margin: 0;
+            color: var(--muted);
+            font-size: 1.08rem;
+            max-width: 62ch;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-radius: 14px;
+            padding: 14px 18px;
+            font-weight: 700;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .btn:hover { transform: translateY(-1px); }
+        .btn-primary {
+            color: #04111f;
+            background: linear-gradient(135deg, #84b6ff 0%, #66a3ff 55%, #8b5cf6 100%);
+        }
+        .btn-secondary {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .hero-meta {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 26px;
+        }
+
+        .meta-card {
+            padding: 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .meta-card .kicker { color: var(--muted-2); font-size: 0.84rem; }
+        .meta-card strong { display: block; margin-top: 4px; font-size: 1.05rem; }
+
+        .hero-panel { padding: 26px; display: grid; gap: 14px; }
+        .panel-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 0;
+            font-size: 1.05rem;
+        }
+        .panel-title span { color: var(--muted); font-weight: 500; font-size: 0.93rem; }
+
+        .signal-list {
+            display: grid;
+            gap: 12px;
+        }
+        .signal {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .signal-badge {
+            min-width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: rgba(102, 163, 255, 0.14);
+            color: #cfe1ff;
+            font-weight: 800;
+        }
+        .signal h3 { margin: 0 0 2px; font-size: 0.98rem; }
+        .signal p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+
+        .section {
+            margin-top: 24px;
+            padding: 28px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+        .section h2 {
+            margin: 0;
+            font-size: clamp(1.5rem, 2vw, 2rem);
+            letter-spacing: -0.02em;
+        }
+        .section p.section-intro {
+            margin: 0;
+            color: var(--muted);
+            max-width: 70ch;
+        }
+
+        .grid-2, .grid-3, .grid-4 {
+            display: grid;
+            gap: 16px;
+        }
+        .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+        .card {
+            padding: 20px;
+            border-radius: 18px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .card h3 {
+            margin: 0 0 8px;
+            font-size: 1.05rem;
+        }
+        .card p { margin: 0; color: var(--muted); }
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.84rem;
+            color: #dbeafe;
+            background: rgba(102, 163, 255, 0.12);
+            border: 1px solid rgba(102, 163, 255, 0.2);
+        }
+        .tag.good { color: #d9fbe7; background: rgba(33, 197, 93, 0.12); border-color: rgba(33, 197, 93, 0.24); }
+        .tag.warn { color: #fff0c2; background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.24); }
+        .tag.bad { color: #ffd3d3; background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.24); }
+
+        .pricing-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .pricing-card.featured {
+            border-color: rgba(102, 163, 255, 0.35);
+            box-shadow: 0 0 0 1px rgba(102, 163, 255, 0.12), var(--shadow);
+        }
+        .price {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            margin: 8px 0 10px;
+        }
+        .price small {
+            font-size: 0.9rem;
+            color: var(--muted);
+            font-weight: 600;
+        }
+        .card ul {
+            margin: 14px 0 0;
+            padding-left: 18px;
+            color: var(--muted);
+        }
+        .card li { margin: 8px 0; }
+
+        .step {
+            position: relative;
+        }
+        .step-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            color: #04111f;
+            font-weight: 800;
+            background: linear-gradient(135deg, #84b6ff 0%, #8b5cf6 100%);
+            margin-bottom: 12px;
+        }
+
+        .finding-list {
+            display: grid;
+            gap: 14px;
+            margin-top: 6px;
+        }
+        .finding {
+            display: flex;
+            gap: 14px;
+            padding: 18px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .finding strong { display: block; margin-bottom: 4px; }
+        .finding p { margin: 0; color: var(--muted); }
+        .finding-marker {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            margin-top: 7px;
+            background: var(--accent);
+            box-shadow: 0 0 0 6px rgba(33, 197, 93, 0.12);
+            flex: 0 0 auto;
+        }
+
+        .cta {
+            margin: 24px 0 20px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 22px;
+        }
+        .cta h2 { margin-bottom: 10px; }
+        .cta p { margin: 0; color: var(--muted); max-width: 66ch; }
+
+        .footer {
+            padding: 10px 0 34px;
+            color: var(--muted-2);
+            font-size: 0.92rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .fineprint {
+            color: var(--muted-2);
+            font-size: 0.86rem;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 980px) {
+            .hero, .grid-2, .grid-3, .grid-4, .cta, .section-header, .topbar {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-meta { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .page { padding: 16px; }
+            .hero-copy, .hero-panel, .section, .cta { padding: 20px; }
+            .nav { gap: 10px; font-size: 0.9rem; }
+            .btn { width: 100%; }
+            .hero-actions { width: 100%; }
+            .hero-actions .btn { flex: 1 1 100%; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>JAGM IT Company</h1>
-            <p>GitHub Free Features Audit — AI-SDLC Team Project</p>
-            <p style="margin-top: 10px; color: #3fb950;">Дата: 24 липня 2026</p>
-        </div>
+    <div class="page">
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-mark" aria-hidden="true">J</div>
+                <div>
+                    JAGM IT Company
+                    <small>Client-ready GitHub audit services</small>
+                </div>
+            </div>
+            <nav class="nav" aria-label="Primary">
+                <a href="#audit-scope">What we audit</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#process">How it works</a>
+                <a href="#findings">Sample findings</a>
+            </nav>
+        </header>
 
-        <div class="stats">
-            <div class="stat">
-                <div class="num">15</div>
-                <div class="label">Role Deliverables</div>
-            </div>
-            <div class="stat">
-                <div class="num">26</div>
-                <div class="label">GitHub Issues</div>
-            </div>
-            <div class="stat">
-                <div class="num">9</div>
-                <div class="label">C-Level Reports</div>
-            </div>
-            <div class="stat">
-                <div class="num">4,736</div>
-                <div class="label">Lines of Documentation</div>
-            </div>
-            <div class="stat">
-                <div class="num">4</div>
-                <div class="label">Parallel Agents</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Role Deliverables (15/15 Complete)</h2>
-            <div class="roles">
-                <div class="role">
-                    <div class="name">CEO</div>
-                    <div class="file">CEO-strategic-analysis.md</div>
-                    <div class="commit">commit: b32de5b</div>
-                </div>
-                <div class="role">
-                    <div class="name">CTO</div>
-                    <div class="file">CTO-technical-plan.md</div>
-                    <div class="commit">commit: 01d0118</div>
-                </div>
-                <div class="role">
-                    <div class="name">CFO</div>
-                    <div class="file">CFO-cost-analysis.md</div>
-                    <div class="commit">commit: 8449484</div>
-                </div>
-                <div class="role">
-                    <div class="name">CMO</div>
-                    <div class="file">CMO-marketing-analysis.md</div>
-                    <div class="commit">commit: 2a99314</div>
-                </div>
-                <div class="role">
-                    <div class="name">CISO</div>
-                    <div class="file">CISO-security-audit.md</div>
-                    <div class="commit">commit: 841adef</div>
-                </div>
-                <div class="role">
-                    <div class="name">PMO</div>
-                    <div class="file">PMO-project-management.md</div>
-                    <div class="commit">commit: c6ac6bd</div>
-                </div>
-                <div class="role">
-                    <div class="name">QAO</div>
-                    <div class="file">QAO-quality-strategy.md</div>
-                    <div class="commit">commit: 863456e</div>
-                </div>
-                <div class="role">
-                    <div class="name">DevOps</div>
-                    <div class="file">DevOps-automation-plan.md</div>
-                    <div class="commit">commit: a288b5d</div>
-                </div>
-                <div class="role">
-                    <div class="name">SEDO</div>
-                    <div class="file">SEDO-engineering-standards.md</div>
-                    <div class="commit">commit: 735fe24</div>
-                </div>
-                <div class="role">
-                    <div class="name">Research</div>
-                    <div class="file">Research-feature-catalog.md</div>
-                    <div class="commit">commit: 10870ea</div>
-                </div>
-                <div class="role">
-                    <div class="name">Design</div>
-                    <div class="file">Design-brand-guide.md</div>
-                    <div class="commit">commit: a1cc36b</div>
-                </div>
-                <div class="role">
-                    <div class="name">Sales</div>
-                    <div class="file">Sales-strategy.md</div>
-                    <div class="commit">commit: 42e4733</div>
-                </div>
-                <div class="role">
-                    <div class="name">TechWriter</div>
-                    <div class="file">TechWriter-documentation.md</div>
-                    <div class="commit">commit: 143b46d</div>
-                </div>
-                <div class="role">
-                    <div class="name">AI-Engineer</div>
-                    <div class="file">AI-Engineer-features.md</div>
-                    <div class="commit">commit: 72e8e2b</div>
-                </div>
-                <div class="role">
-                    <div class="name">Legal</div>
-                    <div class="file">Legal-compliance.md</div>
-                    <div class="commit">commit: 4bcc346</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>C-Level Reports (Tickets #18-#26)</h2>
-            <div class="reports">
-                <div class="report">
-                    <span class="role-tag">CEO</span>
-                    <div class="title">Strategic Status — Revenue: $0, Products: 3, Team: 124 profiles</div>
-                </div>
-                <div class="report">
-                    <span class="role-tag">CTO</span>
-                    <div class="title">Technical Status — 12/28 repos have CI, 0 have Dependabot, agent push problem identified</div>
-                </div>
-                <div class="report">
-                    <span class="role-tag">CFO</span>
-                    <div class="title">Financial Status — $0 revenue, $0 expenses, $3K-8K potential savings identified</div>
-                </div>
-                <div class="report">
-                    <span class="role-tag">CMO</span>
-                    <div class="title">Marketing Status — Landing page live, 0 leads, 0 social media</div>
-                </div>
-                <div class="report">
-                    <span class="role-tag">CISO</span>
-                    <div class="title">Security Status — 0 repos with CodeQL, 0 with secret scanning, 0 with branch protection</div>
-                </div>
-                <div class="report">
-                    <span class="role-tag">QAO</span>
-                    <div class="title">Quality Status — 16 repos without CI, no coverage enforcement, no merge gates</div>
-                </div>
-                <div class="report">
-                    <span class="role-tag">DevOps</span>
-                    <div class="title">Infrastructure Status — Dependabot enabled on 2 repos, push verification scripts created</div>
-                </div>
-                <div class="report">
-                    <span class="role-tag">PMO</span>
-                    <div class="title">Project Status — 5 active projects, no sprint cadence, no GitHub Projects board</div>
-                </div>
-                <div class="report">
-                    <span class="role-tag">COO Twin</span>
-                    <div class="title">Company Plan — 5 priorities for next 7 days, all running in parallel</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Key Findings</h2>
-            <div class="findings">
-                <div class="finding">
-                    <div class="title">8 of 35 free GitHub features used (23%)</div>
-                    <div class="desc">GitHub Projects, Dependabot, Webhooks, Packages, Releases, Milestones, Issue Templates, CodeQL — all free, all unused</div>
-                </div>
-                <div class="finding">
-                    <div class="title">$3,000-$8,000 annual savings available</div>
-                    <div class="desc">Free GitHub features replace paid CI/CD, PM tools, hosting, security scanning</div>
-                </div>
-                <div class="finding">
-                    <div class="title">Agent push failure: 30% of agents don't push to remote</div>
-                    <div class="desc">CTO created verify_remote_push.py to detect and fix this automatically</div>
-                </div>
-                <div class="finding">
-                    <div class="title">Private repo limits free features</div>
-                    <div class="desc">CodeQL, secret scanning, GitHub Pages require public repos on free tier</div>
-                </div>
-                <div class="finding">
-                    <div class="title">Revenue: $0 after 4 months</div>
-                    <div class="desc">3 products ready, 0 clients, 0 sales. Roman must send materials to prospects.</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Company Plan — Next 7 Days</h2>
-            <div class="plan">
-                <h3>Priority 1: Revenue (CFO, CMO, Sales)</h3>
-                <ul>
-                    <li>Roman sends Repo Audit materials to 5 prospects</li>
-                    <li>First audit delivered to first client</li>
-                    <li>Revenue target: $300 (first sale)</li>
-                </ul>
-                <h3>Priority 2: Infrastructure (CTO, DevOps, CISO)</h3>
-                <ul>
-                    <li>Dependabot enabled on all repos ✅ (2/18 done, in progress)</li>
-                    <li>Branch protection on main repos</li>
-                    <li>verify_remote_push.py deployed ✅</li>
-                    <li>SECURITY.md in all repos</li>
-                </ul>
-                <h3>Priority 3: Quality (QAO, SEDO)</h3>
-                <ul>
-                    <li>CI workflows on all 28 repos</li>
-                    <li>Issue/PR templates in all repos (in progress)</li>
-                    <li>Coverage reporting on main repos</li>
-                    <li>GitHub Projects v2 board created</li>
-                </ul>
-                <h3>Priority 4: Products (DevOps, Design)</h3>
-                <ul>
-                    <li>DM Twin Phase 2 complete</li>
-                    <li>Family Expenses production-ready</li>
-                    <li>Company website polished</li>
-                </ul>
-                <h3>Priority 5: Twin Perfection (Clark COO)</h3>
-                <ul>
-                    <li>Proactivity: identify gaps without being told</li>
-                    <li>C-level reporting: every 5 min from each role</li>
-                    <li>Toast notifications: C-level messages visible</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Parallel Work In Progress</h2>
-            <div class="roles">
-                <div class="role">
-                    <div class="name">DevOps</div>
-                    <div class="file">Dependabot on all repos</div>
-                    <div class="commit">2/18 done, in progress</div>
-                </div>
-                <div class="role">
-                    <div class="name">PMO</div>
-                    <div class="file">Issue/PR templates on all repos</div>
-                    <div class="commit">in progress</div>
-                </div>
-                <div class="role">
-                    <div class="name">CMO+Sales</div>
-                    <div class="file">Revenue sales package</div>
-                    <div class="commit">✅ done (commit 443349a)</div>
-                </div>
-                <div class="role">
-                    <div class="name">CTO</div>
-                    <div class="file">Push verification scripts</div>
-                    <div class="commit">✅ done (commit f6df0fb)</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Sales Package Ready</h2>
-            <div class="findings">
-                <div class="finding">
-                    <div class="title">AI-SDLC Repo Audit — $300</div>
-                    <div class="desc">
-                        <a href="https://github.com/jagmstar/github-features-audit/blob/main/docs/Sales-Repo-Audit-Package/one-pager.md">One-pager</a> |
-                        <a href="https://github.com/jagmstar/github-features-audit/blob/main/docs/Sales-Repo-Audit-Package/sample-report.md">Sample report</a> |
-                        <a href="https://github.com/jagmstar/github-features-audit/blob/main/docs/Sales-Repo-Audit-Package/engagement-process.md">Engagement process</a> |
-                        <a href="https://github.com/jagmstar/github-features-audit/blob/main/docs/Sales-Repo-Audit-Package/checklist.md">Internal checklist</a>
+        <main>
+            <section class="hero" aria-labelledby="hero-title">
+                <div class="hero-copy">
+                    <div class="eyebrow">AI + human review for GitHub repos</div>
+                    <h1 id="hero-title">AI-Powered GitHub Repository Audit</h1>
+                    <p class="lead">
+                        We help clients understand their repository risk fast: secrets exposure, CI/CD gaps,
+                        branch protection weaknesses, missing security documentation, and code quality issues —
+                        all packaged into a clear, executive-ready deliverable.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="https://github.com/jagmstar/github-features-audit/issues/new?template=audit-request.yml" target="_blank" rel="noreferrer">
+                            Request Audit
+                        </a>
+                        <a class="btn btn-secondary" href="#findings">See sample findings</a>
+                    </div>
+                    <div class="hero-meta" aria-label="Service highlights">
+                        <div class="meta-card">
+                            <div class="kicker">Turnaround</div>
+                            <strong>Fast initial scan</strong>
+                        </div>
+                        <div class="meta-card">
+                            <div class="kicker">Delivery</div>
+                            <strong>Actionable report</strong>
+                        </div>
+                        <div class="meta-card">
+                            <div class="kicker">Optional follow-up</div>
+                            <strong>Fix support available</strong>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="footer">
-            <p>JAGM IT Company — AI-SDLC Team of Digital Twins</p>
-            <p>Repo: <a href="https://github.com/jagmstar/github-features-audit">github.com/jagmstar/github-features-audit</a></p>
-            <p>Generated: 2026-07-24</p>
-        </div>
+                <aside class="hero-panel" aria-label="Audit snapshot">
+                    <h2 class="panel-title">What clients receive <span>from every engagement</span></h2>
+                    <div class="signal-list">
+                        <div class="signal">
+                            <div class="signal-badge">1</div>
+                            <div>
+                                <h3>Prioritized findings</h3>
+                                <p>Critical issues are ranked first, with the business impact explained in plain language.</p>
+                            </div>
+                        </div>
+                        <div class="signal">
+                            <div class="signal-badge">2</div>
+                            <div>
+                                <h3>Proof-based recommendations</h3>
+                                <p>We point to the exact repository signals behind each conclusion, not just generic advice.</p>
+                            </div>
+                        </div>
+                        <div class="signal">
+                            <div class="signal-badge">3</div>
+                            <div>
+                                <h3>Next-step roadmap</h3>
+                                <p>Each audit ends with practical steps for hardening the repo and reducing delivery risk.</p>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="section" id="audit-scope">
+                <div class="section-header">
+                    <div>
+                        <h2>What we audit</h2>
+                        <p class="section-intro">Our audit covers the most important GitHub repository signals clients care about when they want faster delivery and lower risk.</p>
+                    </div>
+                </div>
+                <div class="grid-3">
+                    <article class="card">
+                        <h3>Secrets and exposure risks</h3>
+                        <p>We look for hardcoded secrets, accidental leakage patterns, and security hygiene issues that could lead to a breach.</p>
+                        <div class="tag-row">
+                            <span class="tag bad">Secrets</span>
+                            <span class="tag">Tokens</span>
+                            <span class="tag">Leakage patterns</span>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <h3>CI/CD health</h3>
+                        <p>We review workflow coverage, automation quality, and whether the repo has the checks needed for reliable delivery.</p>
+                        <div class="tag-row">
+                            <span class="tag">GitHub Actions</span>
+                            <span class="tag good">Pipeline coverage</span>
+                            <span class="tag">Release gates</span>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <h3>Branch protection</h3>
+                        <p>We assess governance controls that keep main branches safe from accidental or unreviewed changes.</p>
+                        <div class="tag-row">
+                            <span class="tag warn">Required reviews</span>
+                            <span class="tag">Status checks</span>
+                            <span class="tag">Protected branches</span>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <h3>Security documentation</h3>
+                        <p>We verify whether the repository has clear security reporting and policy docs such as SECURITY.md and contribution guidance.</p>
+                        <div class="tag-row">
+                            <span class="tag">SECURITY.md</span>
+                            <span class="tag">Issue templates</span>
+                            <span class="tag">Policy docs</span>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <h3>Code quality signals</h3>
+                        <p>We identify maintainability, consistency, and testability issues that affect developer experience and long-term velocity.</p>
+                        <div class="tag-row">
+                            <span class="tag good">Tests</span>
+                            <span class="tag">Linting</span>
+                            <span class="tag">Structure</span>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <h3>GitHub governance</h3>
+                        <p>We inspect repo setup so the team can ship with better standards, cleaner workflows, and fewer avoidable mistakes.</p>
+                        <div class="tag-row">
+                            <span class="tag">CODEOWNERS</span>
+                            <span class="tag">Templates</span>
+                            <span class="tag">Permissions</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" id="pricing">
+                <div class="section-header">
+                    <div>
+                        <h2>Pricing</h2>
+                        <p class="section-intro">Straightforward packaged offers make it easy for clients to choose the level of support they need.</p>
+                    </div>
+                </div>
+                <div class="grid-3">
+                    <article class="card pricing-card">
+                        <h3>Basic</h3>
+                        <div class="price">$300</div>
+                        <p>For a focused repo review with clear findings and a practical summary.</p>
+                        <ul>
+                            <li>Single repository audit</li>
+                            <li>Automated scan + manual review</li>
+                            <li>Concise findings report</li>
+                        </ul>
+                    </article>
+                    <article class="card pricing-card featured">
+                        <h3>Audit + Fix</h3>
+                        <div class="price">$1K–$3K</div>
+                        <p>For teams that want remediation help after the audit, not just a report.</p>
+                        <ul>
+                            <li>Audit plus implementation support</li>
+                            <li>Priority fixes for the highest-risk items</li>
+                            <li>Delivery guidance and follow-up</li>
+                        </ul>
+                    </article>
+                    <article class="card pricing-card">
+                        <h3>Retainer</h3>
+                        <div class="price">$1K–$5K/mo</div>
+                        <p>For ongoing repository hardening and continuous advisory support.</p>
+                        <ul>
+                            <li>Regular monitoring and reviews</li>
+                            <li>Continuous governance improvements</li>
+                            <li>Long-term security and quality support</li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" id="process">
+                <div class="section-header">
+                    <div>
+                        <h2>How it works</h2>
+                        <p class="section-intro">We keep the engagement simple, transparent, and repeatable.</p>
+                    </div>
+                </div>
+                <div class="grid-4">
+                    <article class="card step">
+                        <div class="step-number">1</div>
+                        <h3>Submit repo</h3>
+                        <p>The client opens the request form and shares repository details and audit tier.</p>
+                    </article>
+                    <article class="card step">
+                        <div class="step-number">2</div>
+                        <h3>Automated scan</h3>
+                        <p>We run the initial AI-assisted scan to collect repo hygiene, security, and workflow signals.</p>
+                    </article>
+                    <article class="card step">
+                        <div class="step-number">3</div>
+                        <h3>Manual review</h3>
+                        <p>We validate the findings, remove noise, and add context a client can act on immediately.</p>
+                    </article>
+                    <article class="card step">
+                        <div class="step-number">4</div>
+                        <h3>Delivered report</h3>
+                        <p>The client receives a polished report with prioritized actions and optional fix recommendations.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" id="findings">
+                <div class="section-header">
+                    <div>
+                        <h2>Sample findings from the showcase audit</h2>
+                        <p class="section-intro">These are the kinds of practical, client-friendly observations we surface in a real engagement.</p>
+                    </div>
+                </div>
+                <div class="finding-list">
+                    <div class="finding">
+                        <span class="finding-marker" aria-hidden="true"></span>
+                        <div>
+                            <strong>No hardcoded secrets were detected</strong>
+                            <p>The showcase repo passed the secret exposure check, which is a strong baseline but still worth monitoring continuously.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <span class="finding-marker" aria-hidden="true"></span>
+                        <div>
+                            <strong>5 valid GitHub workflow files were found</strong>
+                            <p>The repository has a solid CI foundation, and the audit can quickly verify whether workflow coverage is broad enough.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <span class="finding-marker" aria-hidden="true"></span>
+                        <div>
+                            <strong>No SECURITY.md file was found</strong>
+                            <p>Security disclosure guidance is missing, which is an easy and valuable governance improvement for many teams.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <span class="finding-marker" aria-hidden="true"></span>
+                        <div>
+                            <strong>Branch protection could not be fully verified</strong>
+                            <p>In the showcase context, GitHub returned a permission-limited response, so the audit highlights governance visibility gaps clearly.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <span class="finding-marker" aria-hidden="true"></span>
+                        <div>
+                            <strong>8 YAML files validated cleanly and 125 Python files passed syntax checks</strong>
+                            <p>This gives clients confidence that the repo has a useful baseline of structure and consistency before deeper optimization work begins.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cta" aria-labelledby="cta-title">
+                <div>
+                    <h2 id="cta-title">Ready to review your repository?</h2>
+                    <p>
+                        Request an audit through our GitHub issue template and we will follow the standard intake process from there.
+                    </p>
+                    <div class="fineprint">Works best for teams that want a fast, client-facing assessment of repo risk and delivery readiness.</div>
+                </div>
+                <a class="btn btn-primary" href="https://github.com/jagmstar/github-features-audit/issues/new?template=audit-request.yml" target="_blank" rel="noreferrer">
+                    Request Audit
+                </a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div>JAGM IT Company</div>
+            <div>Professional GitHub audit services for client-facing delivery</div>
+        </footer>
     </div>
 </body>
 </html>
