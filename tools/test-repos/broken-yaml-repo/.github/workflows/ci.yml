@@ -1,0 +1,12 @@
+name: Broken CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on ubuntu-latest
+    steps:
+      - name: This line makes the YAML invalid
+        run: python -m py_compile app.py
