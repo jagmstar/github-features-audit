@@ -1,0 +1,71 @@
+name: Audit Webhook Notification
+
+on:
+  push:
+    paths:
+      - docs/Audits/**
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Collect changed audit reports
+        id: reports
+        shell: bash
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          BASE_SHA="$BEFORE_SHA"
+          if [ "$BASE_SHA" = "0000000000000000000000000000000000000000" ] || [ -z "$BASE_SHA" ]; then
+            BASE_SHA="$(git rev-list --max-parents=0 HEAD | tail -n 1)"
+          fi
+
+          REPORTS="$(git diff --name-only "$BASE_SHA" "$AFTER_SHA" -- docs/Audits \
+            | while IFS= read -r path; do
+                case "$path" in
+                  *.md|*.markdown|*.txt)
+                    printf '%s\n' "$path"
+                    ;;
+                esac
+              done)"
+
+          if [ -z "$REPORTS" ]; then
+            echo "No audit report files were detected under docs/Audits." >&2
+            exit 1
+          fi
+
+          {
+            echo "reports<<EOF"
+            printf '%s\n' "$REPORTS"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Send audit completion notifications
+        shell: bash
+        env:
+          REPORTS: ${{ steps.reports.outputs.reports }}
+        run: |
+          set -euo pipefail
+          while IFS= read -r report; do
+            [ -z "$report" ] && continue
+            python tools/notify.py "$report" --issue 33 --prefix "[DevOps]"
+          done <<< "$REPORTS"
